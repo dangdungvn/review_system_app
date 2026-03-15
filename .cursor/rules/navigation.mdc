@@ -1,0 +1,9 @@
+---
+description: Navigation guidelines using AppNavigator
+globs: lib/ui/**/*.dart,lib/navigation/**/*.dart
+alwaysApply: false
+---
+
+# Navigation Guidelines
+
+Follow the instructions in @docs/technical/navigation_instructions.md

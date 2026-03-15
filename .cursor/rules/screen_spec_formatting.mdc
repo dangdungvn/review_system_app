@@ -1,0 +1,318 @@
+# Screen Specification Formatting Rules (v2.1.1)
+
+Strict formatting rules for screen specification document generation following Template v2.1
+
+## Purpose
+These rules ensure consistent, accurate transformation of Google Sheets screen specifications into structured Markdown documents while preserving all original content exactly as written.
+
+## Core Principle
+**NEVER modify original text.** Every word, character, punctuation mark, and spacing must be preserved exactly as it appears in the source document.
+
+**Exception for Action column**: Extract EXACT TEXT from Action table and remove action ID references from Mô tả.
+
+---
+
+## Template v2.1 Structure
+
+### Simplified Structure (4 Sections):
+```markdown
+## Mục lục
+- [1. Tổng quan](#1-tổng-quan)
+- [2. Chi tiết màn hình](#2-chi-tiết-màn-hình)
+- [3. Luồng tương tác](#3-luồng-tương-tác)
+- [4. Validation procedures detail](#4-validation-procedures-detail)
+```
+
+### Key Characteristics:
+1. **4 sections total** (simplified from previous versions)
+2. **Direct to components** in Section 2
+3. **Table structure**: `STT | Tên thành phần | Loại | Bắt buộc | Mặc định | Mô tả | Action`
+4. **Mô tả column**: Combines データ型, 桁数, フォーマット, descriptions - **WITHOUT action ID references**
+5. **Action column**: EXACT TEXT from Action table - no modification
+
+---
+
+## 1. Text Preservation Rules (CRITICAL)
+
+### 1.1 Exact Text Copying
+- **MUST**: Copy all text character-by-character without any changes
+- **MUST NOT**: Paraphrase, rephrase, or "improve" any text
+- **MUST NOT**: Fix grammar, spelling, or typos in original text
+- **MUST NOT**: Normalize terminology or make wording consistent
+
+**Example - CORRECT**:
+```
+Original: "When user click ""Login"""
+Output:   "When user click ""Login"""
+```
+
+**Example - INCORRECT**:
+```
+Original: "When user click ""Login"""
+Output:   "When the user clicks ""Login"""  ❌ (changed "click" to "clicks")
+```
+
+---
+
+## 2. Template v2.1 Specific Rules
+
+### 2.1 Mô tả Column Format
+
+The **Mô tả** column must combine multiple pieces of information:
+
+**Format template**:
+```markdown
+**Data type:** [データ型], **Length:** [桁数] chars, **Format:** [フォーマット]
+**JP:** [Japanese description - WITHOUT action ID reference]
+**EN:** [English description - WITHOUT action ID reference]
+```
+
+**CRITICAL - Remove Action ID References:**
+
+After extracting action to Action column, MUST remove these lines from Mô tả:
+- "- アクションIDXを参照してください。"
+- "- アクションID X を参照してください。"
+- "- Refer to action ID X"
+- "- Refer to action ID X."
+
+**Example - CORRECT**:
+```
+Original Mô tả:
+"**JP:** - パスワードを忘れた場合、クリックしてパスワードをリセットできます。
+- アクションID1を参照してください。
+**EN:** - When user forgets their password, that can click to reset password
+- Refer to action ID 1"
+
+After extraction:
+"**JP:** - パスワードを忘れた場合、クリックしてパスワードをリセットできます。
+**EN:** - When user forgets their password, that can click to reset password"
+```
+
+**Example - INCORRECT**:
+```
+❌ Still contains: "- Refer to action ID 1"
+❌ Still contains: "- アクションID1を参照してください。"
+```
+
+### 2.2 Action Column (v2.1.1 - CRITICAL)
+
+**MUST use EXACT TEXT from Action table - NO MODIFICATION**
+
+#### Rule 1: Extract EXACT TEXT
+
+When item description contains:
+- "Refer to action ID X" (EN)
+- "アクションIDXを参照" (JP)
+
+**MUST**:
+1. Find the Action table (Action and Screen Transition/アクション及び画面遷移)
+2. Locate the row with matching Action ID
+3. Extract EXACT TEXT - character by character:
+   - **トリガー (Trigger)**: Copy exactly as written
+   - **画面遷移 (Screen Transition)**: Copy exactly as written
+   - **アクション概要 (Action)**: Copy exactly as written
+4. Preserve all formatting:
+   - Keep `=====` separators
+   - Keep bullets `- `, `+ `, `　+ `
+   - Keep numbering `1. `, `2. `
+   - Keep line breaks
+   - Keep indentation
+
+#### Rule 2: Format in Action Column
+
+**MUST preserve original structure:**
+
+```
+[Trigger text - EXACT]
+=====
+[Trigger text - EXACT]
+→
+[Action details - EXACT]
+=====
+[Action details - EXACT]
+```
+
+**DO NOT**:
+- Summarize or paraphrase
+- Translate between JP/EN
+- Fix grammar or typos
+- Add explanations
+- Change punctuation
+- Modify capitalization
+- Remove any text
+
+#### Rule 3: Examples
+
+**Example 1 - Simple action:**
+
+```
+Action Table (ID 1):
+トリガー:
+「パスワードをお忘れですか?」をクリックするとき
+=====
+When user click "Forgot password"
+
+画面遷移:
+UFP_01 - パスワード忘れ（Forgot password）
+
+アクション概要:
+- 「UFP_01 - パスワード忘れ」画面へ遷移します。
+=====
+- Navigate to UFP_01 - Forgot password
+
+Action Column Output (EXACT TEXT):
+「パスワードをお忘れですか?」をクリックするとき
+=====
+When user click "Forgot password"
+→
+- 「UFP_01 - パスワード忘れ」画面へ遷移します。
+=====
+- Navigate to UFP_01 - Forgot password
+```
+
+**Example 2 - Complex with conditions:**
+
+```
+Action Table (ID 2):
+トリガー:
+「ログイン」をクリックするとき
+=====
+When user click "Login"
+
+画面遷移:
+UOC_01 - 認証コード確認（OTP confirm）
+UTO_01 - トップ画面（TOP Screen）
+
+アクション概要:
+- 存在しない/削除されたアカウントを入力した場合、HCK-005をのエラーメッセージ表示します。
+- 正しいアカウントを入力したが、アカウントを認証していない場合、アカウント認証のリクエストポップアップ（6）が開きます。
+- 正しいアカウントを入力し、かつアカウントが認証済みの場合、UTO_01 - トップ画面に遷移します。
+=====
+- If user enter an unexisted/deleted account show error message HCK-005
+- If user enter correct account BUT has NOT verified account, Open Request to verify account pop-up (6)
+- If user enter correct account AND has verified account, navigate to UTO_01 - TOP Screen
+
+Action Column Output (EXACT TEXT):
+「ログイン」をクリックするとき
+=====
+When user click "Login"
+→
+- 存在しない/削除されたアカウントを入力した場合、HCK-005をのエラーメッセージ表示します。
+- 正しいアカウントを入力したが、アカウントを認証していない場合、アカウント認証のリクエストポップアップ（6）が開きます。
+- 正しいアカウントを入力し、かつアカウントが認証済みの場合、UTO_01 - トップ画面に遷移します。
+=====
+- If user enter an unexisted/deleted account show error message HCK-005
+- If user enter correct account BUT has NOT verified account, Open Request to verify account pop-up (6)
+- If user enter correct account AND has verified account, navigate to UTO_01 - TOP Screen
+```
+
+**Example 3 - Multiple steps with numbering:**
+
+```
+Action Table (ID 4):
+アクション概要:
+1. 以前の認証コードが有効である場合、新しい認証コードが送信されません。
+2. 以前のOTPコードが期限切れの場合、新しい認証コードをユーザーのSMS／メールに送信します。
+3. 「UOC_01 - 認証コード」画面へ遷移します。
+=====
+1. Check if old OTP code if OTP is still valid Do NOT send new OTP code
+2. Check if old OTP code if OTP has expired, send a new OTP code to user SMS/email
+3. Navigate to UOC_01 - OTP confirm
+
+Action Column Output (EXACT TEXT - keep numbering):
+「アカウントを確認する」をクリックするとき
+=====
+When user click "Go to verify account"
+→
+1. 以前の認証コードが有効である場合、新しい認証コードが送信されません。
+2. 以前のOTPコードが期限切れの場合、新しい認証コードをユーザーのSMS／メールに送信します。
+3. 「UOC_01 - 認証コード」画面へ遷移します。
+=====
+1. Check if old OTP code if OTP is still valid Do NOT send new OTP code
+2. Check if old OTP code if OTP has expired, send a new OTP code to user SMS/email
+3. Navigate to UOC_01 - OTP confirm
+```
+
+#### Rule 4: When No Action ID Reference
+
+If description does NOT reference an action ID:
+
+**MUST set Action column to: "-"**
+
+**DO NOT**:
+- Infer action from component type
+- Add text like "Enter/Paste", "Click", "View", "Select", etc.
+- Add any explanations or descriptions
+
+**Only use exact text from Action table when action ID is explicitly referenced**
+
+---
+
+## 3. Prohibited Actions
+
+**NEVER**:
+1. Translate between languages
+2. Fix grammar or spelling errors in Action text
+3. Paraphrase or summarize Action text
+4. Add explanations to Action text
+5. Modify punctuation in Action text
+6. Change capitalization in Action text
+7. Remove any part of Action text
+8. **Keep "Refer to action ID X" in Mô tả after extraction** ← CRITICAL
+9. Add subsections in Section 2
+10. Add separate "Tài liệu liên quan" section
+
+---
+
+## Verification Checklist (v2.1.1)
+
+Before finalizing any screen specification document, verify:
+
+- [ ] Version is set to **2.1**
+- [ ] Mục lục has exactly **4 sections** with correct anchor links
+- [ ] Section 2 starts **directly with Section tables**
+- [ ] Table uses structure: `STT | Tên thành phần | Loại | Bắt buộc | Mặc định | Mô tả | Action`
+- [ ] **Action column uses EXACT TEXT from Action table** ← CRITICAL
+- [ ] **Action column preserves all formatting** (separators, bullets, numbering) ← CRITICAL
+- [ ] **Mô tả does NOT contain "Refer to action ID X"** ← CRITICAL
+- [ ] **Mô tả does NOT contain "アクションIDXを参照してください"** ← CRITICAL
+- [ ] Mô tả column combines データ型, 桁数, フォーマット
+- [ ] All original text copied character-by-character (except action ID references in Mô tả)
+- [ ] All capitalization preserved exactly in Action column
+- [ ] All punctuation preserved exactly in Action column
+- [ ] All Japanese characters (full-width) preserved exactly
+- [ ] All error codes (HCK-XXX) preserved exactly
+- [ ] Both JP and EN text preserved in Action column
+- [ ] No translation between JP and EN
+- [ ] All screen codes preserved exactly with full names
+- [ ] Section 4 includes all validation, business rules, error codes
+
+---
+
+## When in Doubt
+
+**Rule**: If you're unsure whether to modify text, **DON'T**.
+
+**Always** choose exact preservation over readability, consistency, or correctness.
+
+**For Action column**: Copy EXACT TEXT from Action table, character by character.
+
+**For Mô tả column**: Remove action ID references after extraction, keep everything else exact.
+
+---
+
+## Related Documents
+
+- **Template**: `docs/business/screen_spec/screen_spec_template.md` (v2.1)
+- **Guidelines**: `docs/business/screen_spec/screen_spec_template_guidelines.md`
+- **Example**: `docs/business/screen_spec/screen_spec_example.md`
+- **Command**: `.cursor/commands/generate-screen-spec.md`
+
+---
+
+**Version**: 2.1.1  
+**Last Updated**: 2025-10-29  
+**Status**: Active  
+**Key Updates**: 
+- Action column must use EXACT TEXT from Action table (no paraphrasing)
+- Mô tả must NOT contain "Refer to action ID X" after extraction

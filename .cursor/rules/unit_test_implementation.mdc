@@ -1,0 +1,9 @@
+---
+description: Unit test implementation guidelines
+globs: test/unit_test/**/*_test.dart
+alwaysApply: false
+---
+
+# Unit Test Implementation Guidelines
+
+Follow the instructions in @docs/technical/unit_test_instructions.md

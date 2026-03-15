@@ -1,0 +1,9 @@
+---
+description: Guidelines for implementing popups and dialogs
+globs: lib/ui/popup/**/*.dart
+alwaysApply: false
+---
+
+# Popup Implementation Guidelines
+
+Follow the instructions in @docs/technical/popup_instructions.md

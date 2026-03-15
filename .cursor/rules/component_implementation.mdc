@@ -1,0 +1,9 @@
+---
+description: Guidelines for creating reusable UI components
+globs: lib/ui/component/**/*.dart
+alwaysApply: false
+---
+
+# Component Implementation Guidelines
+
+Follow the instructions in @docs/technical/component_instructions.md

@@ -1,0 +1,9 @@
+---
+description: Guidelines for implementing pages
+globs: lib/ui/page/**/*_page.dart
+alwaysApply: false
+---
+
+# Page Implementation Guidelines
+
+Follow the instructions in @docs/technical/page_instructions.md

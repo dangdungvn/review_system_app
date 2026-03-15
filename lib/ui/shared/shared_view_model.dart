@@ -1,0 +1,59 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../index.dart';
+
+final sharedViewModelProvider = Provider((_ref) => SharedViewModel(_ref));
+
+class SharedViewModel {
+  SharedViewModel(this._ref);
+
+  final Ref _ref;
+
+  Future<String> get deviceToken async {
+    try {
+      final deviceToken = await _ref.firebaseMessagingService.deviceToken;
+      if (deviceToken != null) {
+        await _ref.appPreferences.saveDeviceToken(deviceToken);
+      }
+
+      return deviceToken ?? '';
+    } catch (e) {
+      Log.e('Error getting device token: $e');
+      return '';
+    }
+  }
+
+  Future<void> forceLogout() async {
+    try {
+      await _ref.appPreferences.clearCurrentUserData();
+      _ref.update<FirebaseUserData>(currentUserProvider, (state) => const FirebaseUserData());
+      await _ref.nav.replaceAll([const LoginRoute()]);
+    } catch (e) {
+      Log.e('Force logout error: $e');
+
+      await _ref.nav.replaceAll([const LoginRoute()]);
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      final deviceToken = await this.deviceToken;
+      final userId = _ref.appPreferences.userId;
+      await _ref.firebaseFirestoreService.updateCurrentUser(userId: userId, data: {
+        FirebaseUserData.keyDeviceIds: [],
+        FirebaseUserData.keyDeviceTokens: FieldValue.arrayRemove([deviceToken]),
+      });
+      await _ref.appPreferences.clearCurrentUserData();
+      await _ref.firebaseAuthService.signOut();
+      _ref.update<FirebaseUserData>(currentUserProvider, (state) => const FirebaseUserData());
+      await _ref.nav.replaceAll([const LoginRoute()]);
+    } catch (e) {
+      Log.e('Logout error: $e');
+
+      await _ref.nav.replaceAll([const LoginRoute()]);
+    }
+  }
+}

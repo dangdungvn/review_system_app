@@ -1,0 +1,9 @@
+---
+description: ViewModel implementation guidelines using MVVM with Riverpod
+globs: lib/ui/**/*_view_model.dart
+alwaysApply: false
+---
+
+# ViewModel Implementation Guidelines
+
+Follow the instructions in @docs/technical/view_model_instructions.md

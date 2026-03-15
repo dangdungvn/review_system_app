@@ -1,0 +1,9 @@
+---
+description: Guidelines for organizing utility functions, extensions, and helper classes
+globs: lib/common/util/**/*.dart, lib/common/helper/**/*.dart
+alwaysApply: false
+---
+
+# Util and Extension Usage Guidelines
+
+Follow the instructions in @docs/technical/util_and_extension_instructions.md

@@ -1,0 +1,9 @@
+---
+description: Error handling guidelines for AppException and ExceptionHandler
+globs: lib/exception/**/*.dart,lib/ui/**/view_model/*.dart
+alwaysApply: false
+---
+
+# Error Handling Guidelines
+
+Follow the instructions in @docs/technical/error_handling_instructions.md

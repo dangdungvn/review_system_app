@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "cancel": "Cancel",
+  "canNotConnectToHost": "Can not connect to this host",
+  "forceLogout": "Session has expired, please log in again",
+  "home": "Home",
+  "invalidEmail": "invalidEmail",
+  "invalidLoginCredentials": "Invalid login credentials",
+  "invalidPassword": "invalidPassword",
+  "maintenanceTitle": "Server is under maintenance.",
+  "myPage": "My Page",
+  "noInternetException": "noInternetException",
+  "ok": "OK",
+  "passwordsAreNotMatch": "passwordsAreNotMatch",
+  "requiresRecentLogin": "Requires recent login",
+  "retry": "Retry",
+  "timeoutException": "timeoutException",
+  "tokenExpired": "tokenExpired",
+  "unknownException": "unknownException ({errorCode})",
+  "userDoesNotExist": "User does not exist",
+  "usernameAlreadyInUse": "Username already in use"
+}

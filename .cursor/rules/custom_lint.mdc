@@ -1,0 +1,9 @@
+---
+description: Custom lint implementation guidelines for super_lint package
+globs: super_lint/**/*.dart,analysis_options.yaml
+alwaysApply: false
+---
+
+# Custom Lint Implementation Guidelines
+
+Follow the instructions in @docs/technical/custom_lint_instructions.md

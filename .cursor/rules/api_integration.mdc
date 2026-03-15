@@ -1,0 +1,9 @@
+---
+description: API integration guidelines for creating API services and models
+globs: lib/data_source/**/*.dart,lib/model/**/*.dart
+alwaysApply: false
+---
+
+# API Integration Guidelines
+
+Follow the instructions in @docs/technical/api_integration_instructions.md

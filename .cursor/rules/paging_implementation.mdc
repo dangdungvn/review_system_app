@@ -1,0 +1,9 @@
+---
+description: Paging implementation guidelines for API to UI
+globs: lib/data_source/api/paging/**/*.dart, lib/ui/page/**/*_page.dart
+alwaysApply: false
+---
+
+# Paging Implementation Guidelines
+
+Follow the instructions in @docs/technical/paging_instructions.md

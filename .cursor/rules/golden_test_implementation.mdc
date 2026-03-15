@@ -1,0 +1,9 @@
+---
+description: Golden test implementation guidelines for widget testing
+globs: test/widget_test/**/*_test.dart
+alwaysApply: false
+---
+
+# Golden Test Implementation Guidelines
+
+Follow the instructions in @docs/technical/golden_test_instructions.md

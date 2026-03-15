@@ -1,0 +1,9 @@
+---
+description: Guidelines for creating and using constants
+globs: lib/**/*.dart
+alwaysApply: false
+---
+
+# Constant Usage Guidelines
+
+Follow the instructions in @docs/technical/constant_instructions.md

@@ -1,0 +1,40 @@
+{
+  // Dart
+  "dart.lineLength": 100,
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": "off",
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnPaste": true,
+    "editor.rulers": [100]
+  },
+  // VSCode Extension
+  "mynavimobiletool.dataModelPath": "lib/model/api",
+  "mynavimobiletool.uiFolderPath": "lib/ui/page",
+  "mynavimobiletool.riverpodPageTemplate": "singleModule",
+  "mynavimobiletool.widgetTestGlobPatterns": [
+    "**/ui/page/**",
+    "**/ui/popup/**",
+    "**/ui/component/**"
+  ],
+  // fvm (optional)
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  "chat.promptFiles": true,
+  "chat.promptFilesLocations": {
+    ".github/prompts": true
+  },
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true
+  }
+}

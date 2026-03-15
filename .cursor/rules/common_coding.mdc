@@ -1,0 +1,9 @@
+---
+description: Common coding standards and rules for Dart files
+globs: lib/**/*.dart
+alwaysApply: false
+---
+
+# Common Coding Rules
+
+Follow the instructions in @docs/technical/common_coding_rules.md

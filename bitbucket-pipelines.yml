@@ -1,0 +1,15 @@
+image: ghcr.io/cirruslabs/flutter:3.35.4
+
+definitions:
+  steps:
+    - step: &running-ci
+        name: CI.
+        script:
+          - flutter doctor -v
+          - make sync
+          - make check_ci
+
+pipelines:
+  pull-requests:
+    '**':
+      - step: *running-ci

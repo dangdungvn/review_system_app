@@ -1,0 +1,9 @@
+---
+description: Model classes and enum implementation guidelines
+globs: lib/model/**/*.dart, lib/ui/**/*_state.dart
+alwaysApply: false
+---
+
+# Model Classes Guidelines
+
+Follow the instructions in @docs/technical/model_classes_and_enum_instructions.md

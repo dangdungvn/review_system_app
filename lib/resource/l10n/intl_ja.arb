@@ -1,0 +1,22 @@
+{
+  "@@locale": "ja",
+  "cancel": "キャンセル",
+  "canNotConnectToHost": "ホストに接続できません",
+  "forceLogout": "セッションの有効期限が切れました。再度ログインしてください。",
+  "home": "ホームページ",
+  "invalidEmail": "無効なメールアドレス",
+  "invalidLoginCredentials": "無効なログイン情報",
+  "invalidPassword": "無効なパスワード",
+  "maintenanceTitle": "サーバーはメンテナンス中です",
+  "myPage": "マイページ",
+  "noInternetException": "インターネット接続がありません",
+  "ok": "OK",
+  "passwordsAreNotMatch": "パスワードが一致しません",
+  "requiresRecentLogin": "最近のログインが必要です",
+  "retry": "リトライ",
+  "timeoutException": "タイムアウトエラー",
+  "tokenExpired": "トークンの有効期限が切れています",
+  "unknownException": "不明なエラー（{errorCode}）",
+  "userDoesNotExist": "ユーザーが存在しません",
+  "usernameAlreadyInUse": "ユーザー名は既に使用されています"
+}

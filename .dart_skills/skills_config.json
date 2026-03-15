@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "installations": {
+    "copilot": {
+      "flutter": {
+        "skills": [
+          {
+            "name": "flutter-building-forms",
+            "installedAt": "2026-03-14T17:50:28.158227Z"
+          },
+          {
+            "name": "flutter-handling-http-and-json",
+            "installedAt": "2026-03-14T17:50:28.158822Z"
+          },
+          {
+            "name": "flutter-building-plugins",
+            "installedAt": "2026-03-14T17:50:28.159321Z"
+          },
+          {
+            "name": "flutter-caching-data",
+            "installedAt": "2026-03-14T17:50:28.159763Z"
+          },
+          {
+            "name": "flutter-embedding-native-views",
+            "installedAt": "2026-03-14T17:50:28.160307Z"
+          },
+          {
+            "name": "flutter-setting-up-on-macos",
+            "installedAt": "2026-03-14T17:50:28.160674Z"
+          },
+          {
+            "name": "flutter-adding-home-screen-widgets",
+            "installedAt": "2026-03-14T17:50:28.161201Z"
+          },
+          {
+            "name": "flutter-architecting-apps",
+            "installedAt": "2026-03-14T17:50:28.161602Z"
+          },
+          {
+            "name": "flutter-implementing-navigation-and-routing",
+            "installedAt": "2026-03-14T17:50:28.162095Z"
+          },
+          {
+            "name": "flutter-setting-up-on-windows",
+            "installedAt": "2026-03-14T17:50:28.162484Z"
+          },
+          {
+            "name": "flutter-improving-accessibility",
+            "installedAt": "2026-03-14T17:50:28.162897Z"
+          },
+          {
+            "name": "flutter-animating-apps",
+            "installedAt": "2026-03-14T17:50:28.163311Z"
+          },
+          {
+            "name": "flutter-working-with-databases",
+            "installedAt": "2026-03-14T17:50:28.163790Z"
+          },
+          {
+            "name": "flutter-setting-up-on-linux",
+            "installedAt": "2026-03-14T17:50:28.164196Z"
+          },
+          {
+            "name": "flutter-theming-apps",
+            "installedAt": "2026-03-14T17:50:28.164604Z"
+          },
+          {
+            "name": "flutter-building-layouts",
+            "installedAt": "2026-03-14T17:50:28.164988Z"
+          },
+          {
+            "name": "flutter-interoperating-with-native-apis",
+            "installedAt": "2026-03-14T17:50:28.165525Z"
+          },
+          {
+            "name": "flutter-managing-state",
+            "installedAt": "2026-03-14T17:50:28.166060Z"
+          },
+          {
+            "name": "flutter-testing-apps",
+            "installedAt": "2026-03-14T17:50:28.166553Z"
+          },
+          {
+            "name": "flutter-localizing-apps",
+            "installedAt": "2026-03-14T17:50:28.167092Z"
+          },
+          {
+            "name": "flutter-reducing-app-size",
+            "installedAt": "2026-03-14T17:50:28.167637Z"
+          },
+          {
+            "name": "flutter-handling-concurrency",
+            "installedAt": "2026-03-14T17:50:28.168205Z"
+          }
+        ]
+      },
+      "riverpod": {
+        "skills": [
+          {
+            "name": "riverpod-family",
+            "installedAt": "2026-03-14T17:50:28.169215Z"
+          },
+          {
+            "name": "riverpod-consumers",
+            "installedAt": "2026-03-14T17:50:28.169738Z"
+          },
+          {
+            "name": "riverpod-retry",
+            "installedAt": "2026-03-14T17:50:28.170256Z"
+          },
+          {
+            "name": "riverpod-eager-initialization",
+            "installedAt": "2026-03-14T17:50:28.170817Z"
+          },
+          {
+            "name": "riverpod-faq-and-practices",
+            "installedAt": "2026-03-14T17:50:28.171328Z"
+          },
+          {
+            "name": "riverpod-auto-dispose",
+            "installedAt": "2026-03-14T17:50:28.171837Z"
+          },
+          {
+            "name": "riverpod-cancel",
+            "installedAt": "2026-03-14T17:50:28.172341Z"
+          },
+          {
+            "name": "riverpod-codegen-and-hooks",
+            "installedAt": "2026-03-14T17:50:28.172839Z"
+          },
+          {
+            "name": "riverpod-containers",
+            "installedAt": "2026-03-14T17:50:28.173314Z"
+          },
+          {
+            "name": "riverpod-scoping",
+            "installedAt": "2026-03-14T17:50:28.173730Z"
+          },
+          {
+            "name": "riverpod-from-provider",
+            "installedAt": "2026-03-14T17:50:28.174141Z"
+          },
+          {
+            "name": "riverpod-pull-to-refresh",
+            "installedAt": "2026-03-14T17:50:28.174539Z"
+          },
+          {
+            "name": "riverpod-observers",
+            "installedAt": "2026-03-14T17:50:28.174867Z"
+          },
+          {
+            "name": "riverpod-migration",
+            "installedAt": "2026-03-14T17:50:28.176292Z"
+          },
+          {
+            "name": "riverpod-testing",
+            "installedAt": "2026-03-14T17:50:28.176637Z"
+          },
+          {
+            "name": "riverpod-getting-started",
+            "installedAt": "2026-03-14T17:50:28.176981Z"
+          },
+          {
+            "name": "riverpod-overrides",
+            "installedAt": "2026-03-14T17:50:28.177385Z"
+          },
+          {
+            "name": "riverpod-select",
+            "installedAt": "2026-03-14T17:50:28.177733Z"
+          },
+          {
+            "name": "riverpod-refs",
+            "installedAt": "2026-03-14T17:50:28.178333Z"
+          },
+          {
+            "name": "riverpod-3-0-migration",
+            "installedAt": "2026-03-14T17:50:28.178676Z"
+          },
+          {
+            "name": "riverpod-mutations",
+            "installedAt": "2026-03-14T17:50:28.179051Z"
+          },
+          {
+            "name": "riverpod-providers",
+            "installedAt": "2026-03-14T17:50:28.179633Z"
+          },
+          {
+            "name": "riverpod-offline",
+            "installedAt": "2026-03-14T17:50:28.180002Z"
+          }
+        ]
+      }
+    }
+  }
+}

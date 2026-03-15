@@ -1,0 +1,9 @@
+---
+description: Guidelines for using shared providers for global state management
+globs: lib/ui/shared/shared_provider.dart
+alwaysApply: false
+---
+
+# Shared Provider Usage Guidelines
+
+Follow the instructions in @docs/technical/shared_provider_instructions.md

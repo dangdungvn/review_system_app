@@ -1,0 +1,9 @@
+---
+description: Guidelines for managing dependencies in pubspec.yaml
+globs: pubspec.yaml
+alwaysApply: false
+---
+
+# Pubspec Management Guidelines
+
+Follow the instructions in @docs/technical/pubspec_instructions.md

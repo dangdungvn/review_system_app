@@ -1,0 +1,9 @@
+---
+description: Guidelines for using SharedViewModel for shared logic with data access
+globs: lib/ui/shared/shared_view_model.dart
+alwaysApply: false
+---
+
+# SharedViewModel Usage Guidelines
+
+Follow the instructions in @docs/technical/shared_view_model_instructions.md

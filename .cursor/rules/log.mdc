@@ -1,0 +1,9 @@
+---
+description: Logging guidelines using Log class instead of print
+globs: lib/**/*.dart
+alwaysApply: false
+---
+
+# Logging Guidelines
+
+Follow the instructions in @docs/technical/log_instructions.md

@@ -1,0 +1,9 @@
+---
+description: State management guidelines using MVVM with Riverpod
+globs: lib/ui/**/*_view_model.dart, lib/ui/**/*_state.dart, lib/ui/**/*_page.dart
+alwaysApply: false
+---
+
+# State Management Guidelines
+
+Follow the instructions in @docs/technical/state_management_instructions.md

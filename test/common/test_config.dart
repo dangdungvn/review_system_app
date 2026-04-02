@@ -9,7 +9,7 @@ class TestConfig {
   const TestConfig._();
 
   static const targetPlatform = TargetPlatform.android;
-  static const defaultLocale = Locale('ja');
+  static const defaultLocale = Locale('vi');
   static List<LocalizationsDelegate<dynamic>>? additionalLocalizationsDelegate;
 
   static List<Override> baseOverrides() => [

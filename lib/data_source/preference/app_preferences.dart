@@ -36,6 +36,15 @@ class AppPreferences {
   static const keyIsDarkMode = 'isDarkMode';
   static const keyLanguageCode = 'languageCode';
   static const keyNickName = 'nickName';
+  static const keyHasSeenOnboarding = 'hasSeenOnboarding';
+
+  Future<bool> saveHasSeenOnboarding({required bool hasSeenOnboarding}) {
+    return _sharedPreference.setBool(keyHasSeenOnboarding, hasSeenOnboarding);
+  }
+
+  bool get hasSeenOnboarding {
+    return _sharedPreference.getBool(keyHasSeenOnboarding) ?? false;
+  }
 
   Future<bool> saveIsDarkMode(bool isDarkMode) {
     return _sharedPreference.setBool(keyIsDarkMode, isDarkMode);

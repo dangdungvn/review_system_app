@@ -9,7 +9,16 @@
       "Bash(claude mcp add:*)",
       "WebFetch(domain:www.figma.com)",
       "Bash(claude mcp:*)",
-      "Bash(make:*)"
+      "Bash(make:*)",
+      "WebFetch(domain:developer.clickup.com)",
+      "WebSearch",
+      "WebFetch(domain:clickup.com)",
+      "mcp__Framelink_MCP_for_Figma__get_figma_data",
+      "mcp__Framelink_MCP_for_Figma__download_figma_images",
+      "Bash(dart run:*)",
+      "Bash(dart analyze:*)",
+      "Bash(flutter gen-l10n:*)",
+      "Bash(ls /Users/dangdungvn/Desktop/review_system_app/lib/generated/app_string_*.dart)"
     ],
     "deny": []
   }

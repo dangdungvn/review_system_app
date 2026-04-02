@@ -8,9 +8,9 @@ void main() {
       expect(result, LanguageCode.en);
     });
 
-    test('when data is ja', () async {
-      final result = LanguageCode.fromValue(Constant.ja);
-      expect(result, LanguageCode.ja);
+    test('when data is vi', () async {
+      final result = LanguageCode.fromValue(Constant.vi);
+      expect(result, LanguageCode.vi);
     });
 
     test('when data is invalid', () async {

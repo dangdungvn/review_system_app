@@ -115,7 +115,7 @@ class Constant {
 
   // response
   static const en = 'EN';
-  static const ja = 'JA';
+  static const vi = 'VI';
   static const male = 0;
   static const female = 1;
   static const other = 2;

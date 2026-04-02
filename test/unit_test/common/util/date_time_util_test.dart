@@ -237,16 +237,16 @@ void main() {
 
     test('when format is not null and locale is not null', () {
       final result = DateTimeUtil.tryParse(
-        '月, 1月 02, 2023 15:16:17',
+        'Th 2, thg 1 02, 2023 15:16:17',
         format: 'E, MMM dd, yyyy HH:mm:ss',
-        locale: 'ja',
+        locale: 'vi',
       );
       expect(result, DateTime(2023, 1, 2, 15, 16, 17));
     });
 
     test('when using wrong locale', () {
       final result = DateTimeUtil.tryParse(
-        '月, 1月 02, 2023 15:16:17',
+        'Th 2, thg 1 02, 2023 15:16:17',
         format: 'E, MMM dd, yyyy HH:mm:ss',
         locale: 'en',
       );
@@ -268,10 +268,10 @@ void main() {
       expect(result, '2023--01--01 04:06:08');
     });
 
-    test('when format is yyyy-MM-dd and locale is ja', () {
+    test('when format is yyyy-MM-dd and locale is vi', () {
       final result = DateTime(2023, 1, 2, 15, 16, 17)
-          .toStringWithFormat('E, MMM dd, yyyy HH:mm:ss', locale: 'ja');
-      expect(result, '月, 1月 02, 2023 15:16:17');
+          .toStringWithFormat('E, MMM dd, yyyy HH:mm:ss', locale: 'vi');
+      expect(result, 'Th 2, thg 1 02, 2023 15:16:17');
     });
   });
 

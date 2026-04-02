@@ -9,9 +9,9 @@ enum LanguageCode {
     localeCode: 'en',
     value: Constant.en,
   ),
-  ja(
-    localeCode: 'ja',
-    value: Constant.ja,
+  vi(
+    localeCode: 'vi',
+    value: Constant.vi,
   );
 
   Locale get locale => Locale(localeCode);
@@ -28,5 +28,5 @@ enum LanguageCode {
   final String localeCode;
   final String value;
 
-  static const defaultValue = ja;
+  static const defaultValue = vi;
 }

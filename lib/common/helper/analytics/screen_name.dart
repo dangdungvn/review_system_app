@@ -34,6 +34,11 @@ enum ScreenName {
     screenEventPrefix: 'my_profile',
     screenClass: 'MyProfilePage',
   ),
+  onboardingPage(
+    screenName: 'Onboarding Page',
+    screenEventPrefix: 'onboarding',
+    screenClass: 'OnboardingPage',
+  ),
   registerPage(
     screenName: 'Register Page',
     screenEventPrefix: 'register',

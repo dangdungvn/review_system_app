@@ -3,6 +3,7 @@ analyzer:
     - custom_lint
     # - dart_code_metrics
   exclude:
+    - "build/**"
     - "**/*.g.dart"
     - "**/*.graphql.dart"
     - "**/*.gr.dart"

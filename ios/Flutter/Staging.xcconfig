@@ -1,3 +1,5 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug-staging.xcconfig"
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release-staging.xcconfig"
 #include "Generated.xcconfig"
 PRODUCT_BUNDLE_IDENTIFIER=en.flutter.app
 APP_DISPLAY_NAME=Staging

@@ -18,7 +18,19 @@
       "Bash(dart run:*)",
       "Bash(dart analyze:*)",
       "Bash(flutter gen-l10n:*)",
-      "Bash(ls /Users/dangdungvn/Desktop/review_system_app/lib/generated/app_string_*.dart)"
+      "Bash(ls /Users/dangdungvn/Desktop/review_system_app/lib/generated/app_string_*.dart)",
+      "Bash(flutter --version)",
+      "Bash(flutter devices *)",
+      "Bash(make gen_env)",
+      "Bash(make pg *)",
+      "Bash(make ln *)",
+      "Bash(make fb *)",
+      "Bash(flutter run *)",
+      "Bash(make pod *)",
+      "Bash(flutter build *)",
+      "Bash(xcodebuild -workspace Runner.xcworkspace -scheme Develop -configuration Debug -sdk iphonesimulator -destination \"generic/platform=iOS Simulator\" -derivedDataPath build CODE_SIGNING_ALLOWED=NO)",
+      "Bash(cat /var/folders/fk/4c6cyk3s1nvd3_4234b31wl40000gn/T/SchemeScriptAction-UeQFTs.sh 2>&1)",
+      "Read(//var/folders/fk/4c6cyk3s1nvd3_4234b31wl40000gn/T/**)"
     ],
     "deny": []
   }

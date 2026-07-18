@@ -20,8 +20,7 @@ class SplashViewModel extends BaseViewModel<SplashState> {
         FlutterNativeSplash.remove();
         if (ref.appPreferences.isLoggedIn) {
           await ref.nav.replaceAll([MainRoute()]);
-        } else if (Env.flavor != Flavor.develop &&
-            ref.appPreferences.hasSeenOnboarding) {
+        } else if (Env.flavor != Flavor.develop && ref.appPreferences.hasSeenOnboarding) {
           await ref.nav.replaceAll([const LoginRoute()]);
         } else {
           await ref.nav.replaceAll([const OnboardingRoute()]);

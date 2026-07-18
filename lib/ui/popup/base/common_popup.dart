@@ -65,6 +65,24 @@ class CommonPopup {
     );
   }
 
+  static CommonPopup successSnackBar(String message) {
+    return CommonPopup._(
+      id: 'successSnackBar_$message'.hardcoded,
+      builder: (context, navigator) => SnackBar(
+        content: CommonText(
+          message,
+          style: style(
+            color: color.white,
+            fontSize: 14.rps,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        duration: Constant.snackBarDuration,
+        backgroundColor: color.primary,
+      ),
+    );
+  }
+
   static CommonPopup confirmDialog({
     required String message,
     VoidCallback? onConfirm,

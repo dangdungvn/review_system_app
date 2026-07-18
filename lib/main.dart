@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
+
 import 'index.dart';
 
 // ignore: avoid_unnecessary_async_function
@@ -19,10 +21,11 @@ Future<void> _runMyApp() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
   await AppInitializer.init();
+  await LiquidGlassWidgets.initialize();
   final initialResource = _loadInitialResource();
   runApp(ProviderScope(
     observers: [AppProviderObserver()],
-    child: MyApp(initialResource: initialResource),
+    child: LiquidGlassWidgets.wrap(child: MyApp(initialResource: initialResource)),
   ));
 }
 

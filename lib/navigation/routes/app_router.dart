@@ -55,6 +55,7 @@ class AppRouter extends RootStackRouter {
         buildCustomRoute(
             page: OnboardingRoute.page, transitionsBuilder: TransitionsBuilders.fadeIn),
         buildCustomRoute(page: LoginRoute.page, transitionsBuilder: TransitionsBuilders.fadeIn),
+        buildCustomRoute(page: RegisterRoute.page, transitionsBuilder: TransitionsBuilders.fadeIn),
         buildCustomRoute(
             page: MainRoute.page,
             transitionsBuilder: TransitionsBuilders.fadeIn,

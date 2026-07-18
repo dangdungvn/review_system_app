@@ -57,6 +57,7 @@ dependencies:
   isar_community: 3.3.0-dev.1
   isar_community_flutter_libs: 3.3.0-dev.1
   json_annotation: 4.9.0
+  liquid_glass_widgets: ^0.22.1
   mime: 2.0.0
   package_info_plus: 8.3.0
   path_provider: 2.1.5
@@ -115,3 +116,9 @@ flutter:
           weight: 800
         - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Black.ttf
           weight: 900
+    - family: IconlyLight
+      fonts:
+        - asset: assets/fonts/Iconly/IconlyLight.ttf
+    - family: IconlyBold
+      fonts:
+        - asset: assets/fonts/Iconly/IconlyBold.ttf

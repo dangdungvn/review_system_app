@@ -97,123 +97,47 @@ class RegisterPage extends BasePage<RegisterState,
   }) {
     return Column(
       children: [
-        _buildTextField(
+        CommonTextField(
           hintText: l10n.registerNamePlaceholder,
           onChanged: ref.read(provider.notifier).onNameChanged,
         ),
         SizedBox(height: 16.rps),
-        _buildPasswordField(
+        CommonTextField(
           hintText: l10n.registerPasswordPlaceholder,
-          isObscured: !state.isPasswordVisible,
+          obscureText: !state.isPasswordVisible,
           onChanged: ref.read(provider.notifier).onPasswordChanged,
-          onToggleVisibility: ref.read(provider.notifier).togglePasswordVisibility,
-        ),
-        SizedBox(height: 16.rps),
-        _buildPasswordField(
-          hintText: l10n.registerConfirmPasswordPlaceholder,
-          isObscured: !state.isConfirmPasswordVisible,
-          onChanged: ref.read(provider.notifier).onConfirmPasswordChanged,
-          onToggleVisibility: ref.read(provider.notifier).toggleConfirmPasswordVisibility,
-        ),
-        SizedBox(height: 16.rps),
-        _buildPhoneNumberField(context: context, ref: ref, state: state),
-        SizedBox(height: 16.rps),
-        _buildEmailField(ref),
-      ],
-    );
-  }
-
-  Widget _buildTextField({
-    required String hintText,
-    required ValueChanged<String> onChanged,
-  }) {
-    return Container(
-      height: 56.rps,
-      decoration: BoxDecoration(
-        color: color.greyscale50,
-        borderRadius: BorderRadius.circular(12.rps),
-      ),
-      child: TextField(
-        onChanged: onChanged,
-        style: style(
-          color: color.greyscale900,
-          fontSize: 14.rps,
-          fontWeight: FontWeight.w600,
-        ),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.rps, vertical: 18.rps),
-          hintText: hintText,
-          hintStyle: style(
-            color: color.greyscale500,
-            fontSize: 14.rps,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPasswordField({
-    required String hintText,
-    required bool isObscured,
-    required ValueChanged<String> onChanged,
-    required VoidCallback onToggleVisibility,
-  }) {
-    return Container(
-      height: 56.rps,
-      decoration: BoxDecoration(
-        color: color.greyscale50,
-        borderRadius: BorderRadius.circular(12.rps),
-      ),
-      alignment: Alignment.center,
-      child: TextField(
-        obscureText: isObscured,
-        onChanged: onChanged,
-        style: style(
-          color: color.greyscale900,
-          fontSize: 14.rps,
-          fontWeight: FontWeight.w600,
-        ),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.rps, vertical: 18.rps),
-          hintText: hintText,
-          hintStyle: style(
-            color: color.greyscale500,
-            fontSize: 14.rps,
-            fontWeight: FontWeight.w400,
-          ),
           suffixIcon: IconButton(
-            onPressed: onToggleVisibility,
+            onPressed: ref.read(provider.notifier).togglePasswordVisibility,
             icon: Icon(
-              isObscured ? AppIcons.hideBold : AppIcons.showBold,
+              state.isPasswordVisible ? AppIcons.showBold : AppIcons.hideBold,
               color: color.greyscale500,
               size: 20.rps,
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildPhoneNumberField({
-    required BuildContext context,
-    required WidgetRef ref,
-    required RegisterState state,
-  }) {
-    return Container(
-      height: 56.rps,
-      decoration: BoxDecoration(
-        color: color.greyscale50,
-        borderRadius: BorderRadius.circular(12.rps),
-      ),
-      child: Row(
-        children: [
-          GestureDetector(
+        SizedBox(height: 16.rps),
+        CommonTextField(
+          hintText: l10n.registerConfirmPasswordPlaceholder,
+          obscureText: !state.isConfirmPasswordVisible,
+          onChanged: ref.read(provider.notifier).onConfirmPasswordChanged,
+          suffixIcon: IconButton(
+            onPressed: ref.read(provider.notifier).toggleConfirmPasswordVisibility,
+            icon: Icon(
+              state.isConfirmPasswordVisible ? AppIcons.showBold : AppIcons.hideBold,
+              color: color.greyscale500,
+              size: 20.rps,
+            ),
+          ),
+        ),
+        SizedBox(height: 16.rps),
+        CommonTextField(
+          hintText: l10n.registerPhoneNumberPlaceholder,
+          keyboardType: TextInputType.phone,
+          onChanged: ref.read(provider.notifier).onPhoneNumberChanged,
+          prefixIcon: GestureDetector(
             onTap: () => _showCountryPicker(context: context, ref: ref),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.rps),
+              padding: EdgeInsets.only(left: 16.rps, right: 8.rps),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -229,64 +153,14 @@ class RegisterPage extends BasePage<RegisterState,
               ),
             ),
           ),
-          Expanded(
-            child: TextField(
-              keyboardType: TextInputType.phone,
-              onChanged: ref.read(provider.notifier).onPhoneNumberChanged,
-              style: style(
-                color: color.greyscale900,
-                fontSize: 14.rps,
-                fontWeight: FontWeight.w600,
-              ),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(vertical: 18.rps),
-                hintText: l10n.registerPhoneNumberPlaceholder,
-                hintStyle: style(
-                  color: color.greyscale500,
-                  fontSize: 14.rps,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEmailField(WidgetRef ref) {
-    return Container(
-      height: 56.rps,
-      decoration: BoxDecoration(
-        color: color.greyscale50,
-        borderRadius: BorderRadius.circular(12.rps),
-      ),
-      alignment: Alignment.center,
-      child: TextField(
-        keyboardType: TextInputType.emailAddress,
-        onChanged: ref.read(provider.notifier).onEmailChanged,
-        style: style(
-          color: color.greyscale900,
-          fontSize: 14.rps,
-          fontWeight: FontWeight.w600,
         ),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.rps, vertical: 18.rps),
+        SizedBox(height: 16.rps),
+        CommonTextField(
           hintText: l10n.registerEmailPlaceholder,
-          hintStyle: style(
-            color: color.greyscale500,
-            fontSize: 14.rps,
-            fontWeight: FontWeight.w400,
-          ),
-          suffixIcon: Icon(
-            AppIcons.messageLight,
-            color: color.greyscale500,
-            size: 20.rps,
-          ),
+          keyboardType: TextInputType.emailAddress,
+          onChanged: ref.read(provider.notifier).onEmailChanged,
         ),
-      ),
+      ],
     );
   }
 

@@ -8,5 +8,10 @@ part 'login_state.freezed.dart';
 sealed class LoginState extends BaseState with _$LoginState {
   const LoginState._();
 
-  const factory LoginState() = _LoginState;
+  const factory LoginState({
+    @Default('') String username,
+    @Default('') String password,
+    @Default(false) bool isPasswordVisible,
+    @Default(false) bool rememberPassword,
+  }) = _LoginState;
 }

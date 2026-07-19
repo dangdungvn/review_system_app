@@ -21,4 +21,5 @@ class AppIcons {
   static const IconData searchLight = IconData(0xe94b, fontFamily: 'IconlyLight');
   static const IconData categoryLight = IconData(0xe920, fontFamily: 'IconlyLight');
   static const IconData plusBold = IconData(0xe948, fontFamily: 'IconlyBold');
+  static const IconData lockLight = IconData(0xe936, fontFamily: 'IconlyLight');
 }

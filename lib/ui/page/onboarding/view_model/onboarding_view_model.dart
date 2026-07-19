@@ -32,7 +32,7 @@ class OnboardingViewModel extends BaseViewModel<OnboardingState> {
     await runCatching(
       action: () async {
         await ref.appPreferences.saveHasSeenOnboarding(hasSeenOnboarding: true);
-        await ref.nav.replaceAll([const LoginRoute()]);
+        await ref.nav.push(const LoginRoute());
       },
       handleLoading: false,
     );

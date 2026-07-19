@@ -137,6 +137,7 @@ export 'ui/component/common_scaffold.dart';
 export 'ui/component/common_scrollbar.dart';
 export 'ui/component/common_scrollbar_with_ios_status_bar_tap_detector.dart';
 export 'ui/component/common_text.dart';
+export 'ui/component/common_text_field.dart';
 export 'ui/component/decoration/common_border.dart';
 export 'ui/component/decoration/common_shape.dart';
 export 'ui/component/decoration/dash_border.dart';

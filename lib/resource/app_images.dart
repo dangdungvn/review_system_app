@@ -15,6 +15,8 @@ class $AssetsImagesGen {
 
   String get registerIllustration => 'assets/images/register.png';
 
+  String get successPopup => 'assets/images/success_popup.png';
+
   /// List of all assets
   List<String> get values => [
         iconBack,
@@ -23,7 +25,8 @@ class $AssetsImagesGen {
         onboarding1,
         onboarding2,
         onboarding3,
-        registerIllustration
+        registerIllustration,
+        successPopup
       ];
 }
 

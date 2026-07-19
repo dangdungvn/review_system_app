@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../index.dart';
@@ -74,10 +76,22 @@ class RegisterViewModel extends BaseViewModel<RegisterState> {
       action: () async {
         await Future.delayed(const Duration(seconds: 1));
 
-        ref.nav.showSnackBar(
-          CommonPopup.successSnackBar('Registration successful!'.hardcoded),
+        // Show success dialog
+        unawaited(
+          ref.nav.showDialog(
+            CommonPopup.successDialog(
+              title: 'Thành Công'.hardcoded,
+              message: 'Tài khoản của bạn đã sẵn sàng, hãy đợi chút để vào trang chủ...'.hardcoded,
+            ),
+            barrierDismissible: false,
+          ),
         );
-        await ref.nav.replaceAll([const LoginRoute()]);
+
+        // Wait 2 seconds for premium transition loading spinner
+        await Future.delayed(const Duration(seconds: 2));
+
+        // Replace with Main route
+        await ref.nav.replaceAll([MainRoute()]);
       },
       handleLoading: true,
     );

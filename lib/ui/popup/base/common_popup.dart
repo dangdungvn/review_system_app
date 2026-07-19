@@ -83,6 +83,19 @@ class CommonPopup {
     );
   }
 
+  static CommonPopup successDialog({
+    required String title,
+    required String message,
+  }) {
+    return CommonPopup._(
+      id: 'successDialog_${title}_$message'.hardcoded,
+      builder: (context, navigator) => SuccessDialog(
+        title: title,
+        message: message,
+      ),
+    );
+  }
+
   static CommonPopup confirmDialog({
     required String message,
     VoidCallback? onConfirm,

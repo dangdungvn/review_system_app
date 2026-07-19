@@ -68,6 +68,20 @@ class AppRouter extends RootStackRouter {
                 ],
               ),
               AutoRoute(
+                page: ReviewTab.page,
+                maintainState: true,
+                children: [
+                  AutoRoute(page: ReviewRoute.page, initial: true),
+                ],
+              ),
+              AutoRoute(
+                page: StatisticsTab.page,
+                maintainState: true,
+                children: [
+                  AutoRoute(page: StatisticsRoute.page, initial: true),
+                ],
+              ),
+              AutoRoute(
                 page: MyProfileTab.page,
                 maintainState: true,
                 children: [
@@ -81,6 +95,16 @@ class AppRouter extends RootStackRouter {
 @RoutePage(name: 'HomeTab')
 class HomeTabPage extends AutoRouter {
   const HomeTabPage({super.key});
+}
+
+@RoutePage(name: 'ReviewTab')
+class ReviewTabPage extends AutoRouter {
+  const ReviewTabPage({super.key});
+}
+
+@RoutePage(name: 'StatisticsTab')
+class StatisticsTabPage extends AutoRouter {
+  const StatisticsTabPage({super.key});
 }
 
 @RoutePage(name: 'MyProfileTab')

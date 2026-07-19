@@ -85,13 +85,9 @@ class MainPage extends BasePage<MainState,
             tabsRouter.setActiveIndex(index);
           },
           selectedIconColor: color.primary,
-          // unselectedIconColor: color.greyscale500,
-          selectedLabelColor: color.black,
-          // unselectedLabelColor: color.greyscale500,
           tabs: BottomTab.values
               .map(
                 (tab) => GlassTab(
-                  // label: tab.title,
                   icon: tab.icon,
                   activeIcon: tab.activeIcon,
                 ),

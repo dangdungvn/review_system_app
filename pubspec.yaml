@@ -19,6 +19,7 @@ dependencies:
   clock: 1.1.2
   cloud_firestore: 5.6.9
   connectivity_plus: 6.1.4
+  cupertino_icons: ^1.0.9
   dartx: 1.2.0
   decimal: 3.2.1
   device_info_plus: 11.4.0

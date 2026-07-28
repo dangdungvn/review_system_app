@@ -21,6 +21,8 @@ class AppNavigator {
 
   final tabRoutes = const [
     HomeTab(),
+    ReviewTab(),
+    StatisticsTab(),
     MyProfileTab(),
   ];
 

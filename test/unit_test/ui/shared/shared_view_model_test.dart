@@ -66,6 +66,7 @@ void main() {
               FirebaseUserData.keyDeviceTokens: FieldValue.arrayRemove([dummyDeviceToken]),
             },
           )).thenAnswer((_) async => true);
+      when(() => appApiService.logout()).thenAnswer((_) async {});
       when(() => appPreferences.clearCurrentUserData()).thenAnswer((_) async => true);
       when(() => firebaseAuthService.signOut()).thenAnswer((_) async => true);
       when(() => currentUserStateController.update(any())).thenReturn(dummyUserData);
@@ -82,6 +83,7 @@ void main() {
               FirebaseUserData.keyDeviceTokens: FieldValue.arrayRemove([dummyDeviceToken]),
             },
           )).called(1);
+      verify(() => appApiService.logout()).called(1);
       verify(() => appPreferences.clearCurrentUserData()).called(1);
       verify(() => firebaseAuthService.signOut()).called(1);
       verify(() => currentUserStateController.update(any())).called(1);
@@ -107,6 +109,7 @@ void main() {
               FirebaseUserData.keyDeviceTokens: FieldValue.arrayRemove([dummyDeviceToken]),
             },
           )).called(1);
+      verifyNever(() => appApiService.logout());
       verifyNever(() => appPreferences.clearCurrentUserData());
       verifyNever(() => firebaseAuthService.signOut());
       verifyNever(() => currentUserStateController.update(any()));
@@ -126,6 +129,7 @@ void main() {
               FirebaseUserData.keyDeviceTokens: FieldValue.arrayRemove([dummyDeviceToken]),
             },
           )).called(1);
+      verify(() => appApiService.logout()).called(1);
       verify(() => appPreferences.clearCurrentUserData()).called(1);
       verify(() => firebaseAuthService.signOut()).called(1);
       verifyNever(() => currentUserStateController.update(any()));

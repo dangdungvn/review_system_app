@@ -16,14 +16,24 @@ class SplashViewModel extends BaseViewModel<SplashState> {
   Future<void> init() async {
     await runCatching(
       action: () async {
-        await Future.delayed(const Duration(milliseconds: 1000));
         FlutterNativeSplash.remove();
-        if (ref.appPreferences.isLoggedIn) {
+        final token = await ref.appPreferences.accessToken;
+        final refreshToken = await ref.appPreferences.refreshToken;
+        print('🚀 [STARTUP] Access Token: $token'.hardcoded);
+        print('🚀 [STARTUP] Refresh Token: $refreshToken'.hardcoded);
+        if (ref.appPreferences.isLoggedIn && token.isNotEmpty) {
           await ref.nav.replaceAll([const MainRoute()]);
-        } else if (Env.flavor != Flavor.develop && ref.appPreferences.hasSeenOnboarding) {
-          await ref.nav.replaceAll([const LoginRoute()]);
         } else {
-          await ref.nav.replaceAll([const OnboardingRoute()]);
+          try {
+            await ref.sharedViewModel.forceLogout();
+          } catch (e) {
+            Log.e('force logout on splash error: $e'.hardcoded);
+          }
+          if (Env.flavor != Flavor.develop && ref.appPreferences.hasSeenOnboarding) {
+            await ref.nav.replaceAll([const LoginRoute()]);
+          } else {
+            await ref.nav.replaceAll([const OnboardingRoute()]);
+          }
         }
       },
     );

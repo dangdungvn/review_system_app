@@ -46,6 +46,11 @@ class SharedViewModel {
         FirebaseUserData.keyDeviceIds: [],
         FirebaseUserData.keyDeviceTokens: FieldValue.arrayRemove([deviceToken]),
       });
+      try {
+        await _ref.appApiService.logout();
+      } catch (e) {
+        Log.e('API logout error: $e');
+      }
       await _ref.appPreferences.clearCurrentUserData();
       await _ref.firebaseAuthService.signOut();
       _ref.update<FirebaseUserData>(currentUserProvider, (state) => const FirebaseUserData());

@@ -30,7 +30,7 @@ class MainViewModel extends BaseViewModel<MainState> {
 
   FutureOr<void> init() async {
     setInitialCurrentUserState();
-    listenToCurrentUser();
+    // listenToCurrentUser(); // Bypassed as per user request to not rely on Firebase Firestore
     await initLocalPushNotification();
     await requestPermissions();
     listenOnDeviceTokenRefresh();

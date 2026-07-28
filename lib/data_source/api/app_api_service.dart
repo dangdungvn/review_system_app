@@ -45,12 +45,44 @@ class AppApiService {
     );
   }
 
-  Future<ApiUserData?> getMe() async {
+  Future<ApiAuthResponseData?> login({
+    required String email,
+    required String password,
+  }) async {
+    return _noneAuthAppServerApiClient.request(
+      method: RestMethod.post,
+      path: 'auth/login',
+      body: {
+        'email': email,
+        'password': password,
+      },
+      successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final dataMap = safeCast<Map<String, dynamic>>(map['data'] ?? map) ?? {};
+        return ApiAuthResponseData.fromJson(dataMap);
+      },
+    );
+  }
+
+  Future<void> logout() async {
+    await _authAppServerApiClient.request(
+      method: RestMethod.post,
+      path: 'auth/logout',
+      successResponseDecoderType: SuccessResponseDecoderType.plain,
+    );
+  }
+
+  Future<ApiUserInfo?> getMe() async {
     return _authAppServerApiClient.request(
       method: RestMethod.get,
-      path: 'v1/me',
+      path: 'auth/me',
       successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
-      decoder: (json) => ApiUserData.fromJson(json.safeCast<Map<String, dynamic>>() ?? {}),
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final dataMap = safeCast<Map<String, dynamic>>(map['data'] ?? map) ?? {};
+        return ApiUserInfo.fromJson(dataMap);
+      },
     );
   }
 
@@ -68,5 +100,74 @@ class AppApiService {
       successResponseDecoderType: SuccessResponseDecoderType.paging,
       decoder: (json) => ApiUserData.fromJson(json.safeCast<Map<String, dynamic>>() ?? {}),
     );
+  }
+
+  Future<List<ApiDocumentData>> getDocuments({
+    required int page,
+    required int limit,
+  }) async {
+    final response = await _authAppServerApiClient.request<List<ApiDocumentData>, List<ApiDocumentData>>(
+      method: RestMethod.get,
+      path: 'documents',
+      queryParameters: {
+        'page': page.toString(),
+        'limit': limit.toString(),
+      },
+      successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final dataMap = safeCast<Map<String, dynamic>>(map['data'] ?? map) ?? {};
+        final items = safeCast<List<Object?>>(dataMap['items'] ?? map['items']) ?? [];
+        return items
+            .map((e) => ApiDocumentData.fromJson(safeCast<Map<String, dynamic>>(e) ?? {}))
+            .toList();
+      },
+    );
+    return response ?? [];
+  }
+
+  Future<List<ApiRecommendationData>> getRecommendations() async {
+    final response = await _authAppServerApiClient.request<List<ApiRecommendationData>, List<ApiRecommendationData>>(
+      method: RestMethod.get,
+      path: 'assessment/recommendations',
+      successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final list = safeCast<List<Object?>>(map['data'] ?? json) ?? [];
+        return list
+            .map((e) => ApiRecommendationData.fromJson(safeCast<Map<String, dynamic>>(e) ?? {}))
+            .toList();
+      },
+    );
+    return response ?? [];
+  }
+
+  Future<ApiUserProgressData?> getProgress() async {
+    return _authAppServerApiClient.request<ApiUserProgressData, ApiUserProgressData>(
+      method: RestMethod.get,
+      path: 'assessment/progress',
+      successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final dataMap = safeCast<Map<String, dynamic>>(map['data'] ?? map) ?? {};
+        return ApiUserProgressData.fromJson(dataMap);
+      },
+    );
+  }
+
+  Future<List<ApiReviewActivityData>> getReviewActivities() async {
+    final response = await _authAppServerApiClient.request<List<ApiReviewActivityData>, List<ApiReviewActivityData>>(
+      method: RestMethod.get,
+      path: 'assessment/review-activities',
+      successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final list = safeCast<List<Object?>>(map['data'] ?? json) ?? [];
+        return list
+            .map((e) => ApiReviewActivityData.fromJson(safeCast<Map<String, dynamic>>(e) ?? {}))
+            .toList();
+      },
+    );
+    return response ?? [];
   }
 }

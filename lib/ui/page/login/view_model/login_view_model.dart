@@ -39,21 +39,44 @@ class LoginViewModel extends BaseViewModel<LoginState> {
 
     await runCatching(
       action: () async {
-        await Future.delayed(const Duration(seconds: 1));
+        final authResponse = await ref.read(appApiServiceProvider).login(
+              email: data.username,
+              password: data.password,
+            );
 
-        unawaited(
-          ref.nav.showDialog(
-            CommonPopup.successDialog(
-              title: 'Thành Công'.hardcoded,
-              message: 'Tài khoản của bạn đã sẵn sàng, hãy đợi chút để vào trang chủ...'.hardcoded,
+        if (authResponse != null) {
+          final prefs = ref.read(appPreferencesProvider);
+          if (authResponse.accessToken.isNotEmpty) {
+            await prefs.saveAccessToken(authResponse.accessToken);
+          }
+          if (authResponse.refreshToken.isNotEmpty) {
+            await prefs.saveRefreshToken(authResponse.refreshToken);
+          }
+          final savedAccessToken = await prefs.accessToken;
+          final savedRefreshToken = await prefs.refreshToken;
+          print('🔑 [LOGIN SUCCESS] Saved Access Token: $savedAccessToken'.hardcoded);
+          print('🔑 [LOGIN SUCCESS] Saved Refresh Token: $savedRefreshToken'.hardcoded);
+          await prefs.saveIsLoggedIn(true);
+          await prefs.saveUserId(authResponse.user.id);
+          await prefs.saveEmail(authResponse.user.email);
+          if (authResponse.user.avatarUrl != null) {
+            await prefs.saveAvatarUrl(authResponse.user.avatarUrl!);
+          }
+
+          unawaited(
+            ref.nav.showDialog(
+              CommonPopup.successDialog(
+                title: 'Thành Công'.hardcoded,
+                message: 'Đăng nhập thành công, chuẩn bị chuyển hướng...'.hardcoded,
+              ),
+              barrierDismissible: false,
             ),
-            barrierDismissible: false,
-          ),
-        );
+          );
 
-        await Future.delayed(const Duration(seconds: 2));
+          await Future.delayed(const Duration(milliseconds: 1500));
 
-        await ref.nav.replaceAll([const MainRoute()]);
+          await ref.nav.replaceAll([const MainRoute()]);
+        }
       },
       handleLoading: true,
     );

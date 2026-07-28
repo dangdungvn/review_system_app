@@ -2,6 +2,9 @@ import '../../index.dart';
 
 // ignore: avoid_dynamic,util_functions_must_be_static
 T? safeCast<T>(dynamic value) {
+  if (value == null) {
+    return null;
+  }
   if (value is T) {
     return value;
   }
@@ -13,6 +16,9 @@ T? safeCast<T>(dynamic value) {
 
 extension ObjectExt<T> on T? {
   R? safeCast<R>() {
+    if (this == null) {
+      return null;
+    }
     final that = this;
     if (that is R) {
       return that;

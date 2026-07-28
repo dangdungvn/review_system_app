@@ -60,12 +60,18 @@ class RefreshTokenInterceptor extends BaseInterceptor {
   Future<String> _refreshToken() async {
     _isRefreshing = true;
     final refreshToken = await appPreferences.refreshToken;
+    if (refreshToken.isEmpty) {
+      throw RemoteException(kind: RemoteExceptionKind.refreshTokenFailed);
+    }
     final refreshTokenResponse = await _callRefreshTokenApi(refreshToken);
     await appPreferences.saveAccessToken(
-      refreshTokenResponse?.data?.accessToken ?? '',
+      refreshTokenResponse?.accessToken ?? '',
     );
+    if (refreshTokenResponse?.refreshToken != null) {
+      await appPreferences.saveRefreshToken(refreshTokenResponse!.refreshToken!);
+    }
 
-    return refreshTokenResponse?.data?.accessToken ?? '';
+    return refreshTokenResponse?.accessToken ?? '';
   }
 
   Future<void> _onRefreshTokenSuccess(String newToken) async {
@@ -104,24 +110,33 @@ class RefreshTokenInterceptor extends BaseInterceptor {
     }
   }
 
-  Future<DataResponse<ApiRefreshTokenData>?> _callRefreshTokenApi(
+  Future<ApiRefreshTokenData?> _callRefreshTokenApi(
     String refreshToken,
   ) async {
     try {
-      final response = await refreshTokenApiClient
-          .request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+      final response =
+          await refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
         method: RestMethod.post,
-        path: 'v1/auth/refresh',
-        body: {'refresh_token': refreshToken},
-        decoder: (json) =>
-            ApiRefreshTokenData.fromJson(json.safeCast<Map<String, dynamic>>() ?? {}),
+        path: 'auth/refresh',
+        options: Options(
+          headers: {
+            Constant.basicAuthorization: '${Constant.bearer} $refreshToken',
+          },
+        ),
+        successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+        decoder: (json) {
+          final map = safeCast<Map<String, dynamic>>(json) ?? {};
+          final dataMap = safeCast<Map<String, dynamic>>(map['data'] ?? map) ?? {};
+          return ApiRefreshTokenData.fromJson(dataMap);
+        },
       );
 
       return response;
       // ignore: missing_log_in_catch_block
     } catch (e) {
-      // TODO(minh): fix depend on project #0
-      if (e is RemoteException && e.generalServerErrorId == Constant.refreshTokenFailedErrorId) {
+      if (e is RemoteException &&
+          (e.generalServerErrorId == Constant.refreshTokenFailedErrorId ||
+              e.dioStatusCode == HttpStatus.unauthorized)) {
         throw RemoteException(kind: RemoteExceptionKind.refreshTokenFailed);
       }
 

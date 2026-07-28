@@ -5,8 +5,11 @@ part 'api_refresh_token_data.g.dart';
 
 @freezed
 sealed class ApiRefreshTokenData with _$ApiRefreshTokenData {
+  const ApiRefreshTokenData._();
+
   const factory ApiRefreshTokenData({
-    @JsonKey(name: 'access_token') String? accessToken,
+    @JsonKey(name: 'accessToken') String? accessToken,
+    @JsonKey(name: 'refreshToken') String? refreshToken,
   }) = _ApiRefreshTokenData;
 
   factory ApiRefreshTokenData.fromJson(Map<String, dynamic> json) =>

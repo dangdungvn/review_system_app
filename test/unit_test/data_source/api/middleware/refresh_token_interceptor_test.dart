@@ -43,11 +43,12 @@ void main() {
       refreshTokenInterceptor.onError(dummyError, handler);
 
       verifyNever(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
       );
       verifyNever(() => noneAuthAppServerApiClient.fetch(any()));
@@ -74,14 +75,15 @@ void main() {
       final errorHandler = _MockErrorInterceptorHandler();
 
       when(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
-      ).thenAnswer((_) async => const DataResponse(
-            data: ApiRefreshTokenData(accessToken: newAccessToken),
+      ).thenAnswer((_) async => const ApiRefreshTokenData(
+            accessToken: newAccessToken,
           ));
       when(() => appPreferences.saveAccessToken(any())).thenAnswer((_) async {});
       when(() => appPreferences.refreshToken).thenAnswer((_) async => refreshToken);
@@ -92,11 +94,12 @@ void main() {
       await Future<dynamic>.delayed(5.milliseconds);
 
       verify(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
       ).called(1);
       verify(() => noneAuthAppServerApiClient.fetch(dummyOptions)).called(1);
@@ -124,11 +127,12 @@ void main() {
 
       when(() => appPreferences.refreshToken).thenAnswer((_) async => 'refreshToken');
       when(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
       ).thenThrow(dummyRefreshTokenError);
 
@@ -137,11 +141,12 @@ void main() {
       await Future<dynamic>.delayed(5.milliseconds);
 
       verify(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
       ).called(1);
       verifyNever(() => noneAuthAppServerApiClient.fetch(any()));
@@ -186,14 +191,15 @@ void main() {
       final secondErrorHandler = _MockErrorInterceptorHandler();
 
       when(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
-      ).thenAnswer((_) async => const DataResponse(
-            data: ApiRefreshTokenData(accessToken: newAccessToken),
+      ).thenAnswer((_) async => const ApiRefreshTokenData(
+            accessToken: newAccessToken,
           ));
       when(() => appPreferences.saveAccessToken(any())).thenAnswer((_) async {});
       when(() => appPreferences.refreshToken).thenAnswer((_) async => 'refreshToken');
@@ -208,11 +214,12 @@ void main() {
       await Future<dynamic>.delayed(5.milliseconds);
 
       verify(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
       ).called(1);
       verify(() => noneAuthAppServerApiClient.fetch(dummyOptions)).called(1);
@@ -251,11 +258,12 @@ void main() {
 
       when(() => appPreferences.refreshToken).thenAnswer((_) async => 'refreshToken');
       when(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
       ).thenThrow(dummyRefreshTokenError);
 
@@ -265,11 +273,12 @@ void main() {
       await Future<dynamic>.delayed(5.milliseconds);
 
       verify(
-        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, ApiRefreshTokenData>(
           method: RestMethod.post,
-          path: 'v1/auth/refresh',
-          body: any(named: 'body'),
+          path: 'auth/refresh',
+          options: any(named: 'options'),
           decoder: any(named: 'decoder'),
+          successResponseDecoderType: any(named: 'successResponseDecoderType'),
         ),
       ).called(1);
       verify(() => errorHandler.next(any(

@@ -71,6 +71,20 @@ class MainPage extends BasePage<MainState,
     );
 
     return AutoTabsScaffold(
+      backgroundColor: color.white,
+      appBarBuilder: (context, tabsRouter) => PreferredSize(
+        preferredSize: Size.fromHeight(60.rps + MediaQuery.of(context).padding.top),
+        child: Container(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top + 8.rps,
+            left: 24.rps,
+            right: 24.rps,
+            bottom: 8.rps,
+          ),
+          color: color.white,
+          child: const MainHeader(),
+        ),
+      ),
       routes: ref.read(appNavigatorProvider).tabRoutes,
       extendBody: true,
       bottomNavigationBuilder: (_, tabsRouter) {

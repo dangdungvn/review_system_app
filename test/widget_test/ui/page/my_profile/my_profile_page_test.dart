@@ -19,7 +19,7 @@ MyProfileViewModel _buildMyProfileViewModel([
 }
 
 void main() {
-  group('design', () {
+  group('others', () {
     testGoldens(
       'placeholder',
       (tester) async {
@@ -35,9 +35,7 @@ void main() {
       },
       skip: true,
     );
-  });
 
-  group('others', () {
     testGoldens(
       'default state',
       (tester) async {

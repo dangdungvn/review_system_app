@@ -74,9 +74,6 @@ class RegisterViewModel extends BaseViewModel<RegisterState> {
 
     await runCatching(
       action: () async {
-        await Future.delayed(const Duration(seconds: 1));
-
-        // Show success dialog
         unawaited(
           ref.nav.showDialog(
             CommonPopup.successDialog(
@@ -87,10 +84,8 @@ class RegisterViewModel extends BaseViewModel<RegisterState> {
           ),
         );
 
-        // Wait 2 seconds for premium transition loading spinner
         await Future.delayed(const Duration(seconds: 2));
 
-        // Replace with Main route
         await ref.nav.replaceAll([const MainRoute()]);
       },
       handleLoading: true,

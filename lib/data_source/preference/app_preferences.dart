@@ -1,5 +1,3 @@
-import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,18 +8,9 @@ final appPreferencesProvider = Provider((ref) => getIt.get<AppPreferences>());
 
 @LazySingleton()
 class AppPreferences {
-  AppPreferences(this._sharedPreference)
-      : _encryptedSharedPreferences = EncryptedSharedPreferences(prefs: _sharedPreference),
-        _secureStorage = const FlutterSecureStorage(
-          aOptions: AndroidOptions(
-            encryptedSharedPreferences: true,
-          ),
-          iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
-        );
+  AppPreferences(this._sharedPreference);
 
   final SharedPreferences _sharedPreference;
-  final EncryptedSharedPreferences _encryptedSharedPreferences;
-  final FlutterSecureStorage _secureStorage;
 
   // keys should be removed when logout
   static const keyAccessToken = 'accessToken';
@@ -31,6 +20,7 @@ class AppPreferences {
   static const keyPassword = 'password';
   static const keyDeviceToken = 'deviceToken';
   static const keyIsLoggedIn = 'isLoggedIn';
+  static const keyAvatarUrl = 'avatarUrl';
 
   // keys should not be removed when logout
   static const keyIsDarkMode = 'isDarkMode';
@@ -70,14 +60,11 @@ class AppPreferences {
   }
 
   Future<void> saveAccessToken(String token) async {
-    await _encryptedSharedPreferences.setString(
-      keyAccessToken,
-      token,
-    );
+    await _sharedPreference.setString(keyAccessToken, token);
   }
 
   Future<String> get accessToken {
-    return _encryptedSharedPreferences.getString(keyAccessToken);
+    return Future.value(_sharedPreference.getString(keyAccessToken) ?? '');
   }
 
   Future<void> saveIsLoggedIn(bool isLoggedIn) async {
@@ -89,14 +76,11 @@ class AppPreferences {
   }
 
   Future<void> saveRefreshToken(String token) async {
-    await _encryptedSharedPreferences.setString(
-      keyRefreshToken,
-      token,
-    );
+    await _sharedPreference.setString(keyRefreshToken, token);
   }
 
   Future<String> get refreshToken {
-    return _encryptedSharedPreferences.getString(keyRefreshToken);
+    return Future.value(_sharedPreference.getString(keyRefreshToken) ?? '');
   }
 
   Future<bool> saveUserId(String userId) {
@@ -115,15 +99,12 @@ class AppPreferences {
     return _sharedPreference.getString(keyEmail) ?? '';
   }
 
-  Future<void> savePassword(String password) {
-    return _secureStorage.write(
-      key: keyPassword,
-      value: password,
-    );
+  Future<void> savePassword(String password) async {
+    await _sharedPreference.setString(keyPassword, password);
   }
 
-  Future<String?> get password async {
-    return _secureStorage.read(key: keyPassword);
+  Future<String?> get password {
+    return Future.value(_sharedPreference.getString(keyPassword));
   }
 
   Future<bool> saveUserNickname({
@@ -145,6 +126,14 @@ class AppPreferences {
     return _sharedPreference.getString(key);
   }
 
+  Future<bool> saveAvatarUrl(String avatarUrl) {
+    return _sharedPreference.setString(keyAvatarUrl, avatarUrl);
+  }
+
+  String get avatarUrl {
+    return _sharedPreference.getString(keyAvatarUrl) ?? '';
+  }
+
   Future<void> clearCurrentUserData() async {
     await Future.wait(
       [
@@ -155,6 +144,7 @@ class AppPreferences {
         _sharedPreference.remove(keyEmail),
         _sharedPreference.remove(keyPassword),
         _sharedPreference.remove(keyIsLoggedIn),
+        _sharedPreference.remove(keyAvatarUrl),
       ],
     );
   }

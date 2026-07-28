@@ -54,6 +54,16 @@ enum ScreenName {
     screenEventPrefix: 'setting',
     screenClass: 'SettingPage',
   ),
+  reviewPage(
+    screenName: 'Review Page',
+    screenEventPrefix: 'review',
+    screenClass: 'ReviewPage',
+  ),
+  statisticsPage(
+    screenName: 'Statistics Page',
+    screenEventPrefix: 'statistics',
+    screenClass: 'StatisticsPage',
+  ),
   splashPage(
     screenName: 'Splash Page',
     screenEventPrefix: 'splash',

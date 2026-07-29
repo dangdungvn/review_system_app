@@ -106,7 +106,8 @@ class AppApiService {
     required int page,
     required int limit,
   }) async {
-    final response = await _authAppServerApiClient.request<List<ApiDocumentData>, List<ApiDocumentData>>(
+    final response =
+        await _authAppServerApiClient.request<List<ApiDocumentData>, List<ApiDocumentData>>(
       method: RestMethod.get,
       path: 'documents',
       queryParameters: {
@@ -127,7 +128,8 @@ class AppApiService {
   }
 
   Future<List<ApiRecommendationData>> getRecommendations() async {
-    final response = await _authAppServerApiClient.request<List<ApiRecommendationData>, List<ApiRecommendationData>>(
+    final response = await _authAppServerApiClient
+        .request<List<ApiRecommendationData>, List<ApiRecommendationData>>(
       method: RestMethod.get,
       path: 'assessment/recommendations',
       successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
@@ -156,7 +158,8 @@ class AppApiService {
   }
 
   Future<List<ApiReviewActivityData>> getReviewActivities() async {
-    final response = await _authAppServerApiClient.request<List<ApiReviewActivityData>, List<ApiReviewActivityData>>(
+    final response = await _authAppServerApiClient
+        .request<List<ApiReviewActivityData>, List<ApiReviewActivityData>>(
       method: RestMethod.get,
       path: 'assessment/review-activities',
       successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
@@ -169,5 +172,57 @@ class AppApiService {
       },
     );
     return response ?? [];
+  }
+
+  Future<List<ApiExamData>> getExams({required int documentId}) async {
+    final response = await _authAppServerApiClient.request<List<ApiExamData>, List<ApiExamData>>(
+      method: RestMethod.get,
+      path: 'exams',
+      queryParameters: {
+        'documentId': documentId.toString(),
+      },
+      successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final list = safeCast<List<Object?>>(map['data'] ?? json) ?? [];
+        return list
+            .map((e) => ApiExamData.fromJson(safeCast<Map<String, dynamic>>(e) ?? {}))
+            .toList();
+      },
+    );
+    return response ?? [];
+  }
+
+  Future<List<ApiSummaryData>> getSummaries({required int documentId}) async {
+    final response =
+        await _authAppServerApiClient.request<List<ApiSummaryData>, List<ApiSummaryData>>(
+      method: RestMethod.get,
+      path: 'summaries',
+      queryParameters: {
+        'documentId': documentId.toString(),
+      },
+      successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final list = safeCast<List<Object?>>(map['data'] ?? json) ?? [];
+        return list
+            .map((e) => ApiSummaryData.fromJson(safeCast<Map<String, dynamic>>(e) ?? {}))
+            .toList();
+      },
+    );
+    return response ?? [];
+  }
+
+  Future<ApiSummaryData?> getSummaryDetail({required int id}) async {
+    return _authAppServerApiClient.request<ApiSummaryData, ApiSummaryData>(
+      method: RestMethod.get,
+      path: 'summaries/$id',
+      successResponseDecoderType: SuccessResponseDecoderType.jsonObject,
+      decoder: (json) {
+        final map = safeCast<Map<String, dynamic>>(json) ?? {};
+        final dataMap = safeCast<Map<String, dynamic>>(map['data'] ?? map) ?? {};
+        return ApiSummaryData.fromJson(dataMap);
+      },
+    );
   }
 }

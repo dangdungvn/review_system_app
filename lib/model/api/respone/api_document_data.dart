@@ -17,6 +17,5 @@ sealed class ApiDocumentData with _$ApiDocumentData {
     @Default('') String status,
   }) = _ApiDocumentData;
 
-  factory ApiDocumentData.fromJson(Map<String, dynamic> json) =>
-      _$ApiDocumentDataFromJson(json);
+  factory ApiDocumentData.fromJson(Map<String, dynamic> json) => _$ApiDocumentDataFromJson(json);
 }

@@ -89,6 +89,9 @@ class AppRouter extends RootStackRouter {
                 ],
               ),
             ]),
+        AutoRoute(page: SubjectDetailRoute.page),
+        AutoRoute(page: ReviewMethodRoute.page),
+        AutoRoute(page: SummaryDetailRoute.page),
       ];
 }
 

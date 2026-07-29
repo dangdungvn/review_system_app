@@ -85,6 +85,7 @@ class RegisterViewModel extends BaseViewModel<RegisterState> {
         );
 
         await Future.delayed(const Duration(seconds: 2));
+        await ref.nav.pop();
 
         await ref.nav.replaceAll([const MainRoute()]);
       },

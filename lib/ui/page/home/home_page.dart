@@ -21,7 +21,17 @@ class HomePage extends BasePage<HomeState,
 
   @override
   Widget buildPage(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      Future.microtask(() => ref.read(provider.notifier).init());
+      return null;
+    }, const []);
+
+    final documents = ref.watch(provider.select((s) => s.data.documents));
+    final activities = ref.watch(provider.select((s) => s.data.activities));
+    final isLoading = ref.watch(provider.select((s) => s.isLoading));
+
     return CommonScaffold(
+      shimmerEnabled: isLoading && documents.isEmpty,
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24.rps, vertical: 12.rps),
         child: Column(
@@ -29,9 +39,13 @@ class HomePage extends BasePage<HomeState,
           children: [
             _buildSpecialBanner(),
             SizedBox(height: 32.rps),
-            _buildSubjectSection(),
+            _buildSubjectSection(
+              context: context,
+              ref: ref,
+              documents: documents,
+            ),
             SizedBox(height: 32.rps),
-            _buildStatsCard(),
+            _buildStatsCard(activities),
             SizedBox(height: 100.rps), // bottom padding for floating glass tab bar
           ],
         ),
@@ -139,7 +153,19 @@ class HomePage extends BasePage<HomeState,
     );
   }
 
-  Widget _buildSubjectSection() {
+  Widget _buildSubjectSection({
+    required BuildContext context,
+    required WidgetRef ref,
+    required List<ApiDocumentData> documents,
+  }) {
+    final displayDocs = documents.isNotEmpty
+        ? documents
+        : const [
+            ApiDocumentData(title: 'Xác xuất thống kê', description: '3 tài liệu đã tải'),
+            ApiDocumentData(title: 'Giải tích 1', description: '5 tài liệu đã tải'),
+            ApiDocumentData(title: 'Đại số tuyến tính', description: '2 tài liệu đã tải'),
+          ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -179,31 +205,44 @@ class HomePage extends BasePage<HomeState,
           scrollDirection: Axis.horizontal,
           clipBehavior: Clip.none,
           child: Row(
-            children: [
-              _buildSubjectCard(
-                title: 'Xác xuất thống kê'.hardcoded,
-                subTitle: '3 tài liệu đã tải'.hardcoded,
-                icon: AppIcons.notificationLight,
-                bgColor: const Color(0xFFEBF6FF),
-                iconColor: const Color(0xFF007AFF),
-              ),
-              SizedBox(width: 12.rps),
-              _buildSubjectCard(
-                title: 'Giải tích 1'.hardcoded,
-                subTitle: '5 tài liệu đã tải'.hardcoded,
-                icon: AppIcons.categoryLight,
-                bgColor: const Color(0xFFEEFBF3),
-                iconColor: const Color(0xFF34C759),
-              ),
-              SizedBox(width: 12.rps),
-              _buildSubjectCard(
-                title: 'Đại số tuyến tính'.hardcoded,
-                subTitle: '2 tài liệu đã tải'.hardcoded,
-                icon: AppIcons.documentLight,
-                bgColor: const Color(0xFFFFEEF0),
-                iconColor: const Color(0xFFFF3B30),
-              ),
-            ],
+            children: List.generate(displayDocs.length, (index) {
+              final doc = displayDocs[index];
+              final colors = [
+                const Color(0xFFEBF6FF),
+                const Color(0xFFEEFBF3),
+                const Color(0xFFFFEEF0),
+              ];
+              final iconColors = [
+                const Color(0xFF007AFF),
+                const Color(0xFF34C759),
+                const Color(0xFFFF3B30),
+              ];
+              final icons = [
+                AppIcons.notificationLight,
+                AppIcons.categoryLight,
+                AppIcons.documentLight,
+              ];
+              final colorIdx = index % colors.length;
+
+              return Padding(
+                padding: EdgeInsets.only(right: index == displayDocs.length - 1 ? 0 : 12.rps),
+                child: CommonInkWell(
+                  onTap: () {
+                    if (doc.id > 0) {
+                      context.router.push(SubjectDetailRoute(document: doc));
+                    }
+                  },
+                  child: _buildSubjectCard(
+                    title: doc.title,
+                    subTitle:
+                        doc.description ?? '${(doc.fileSize / 1024 / 1024).toStringAsFixed(1)} MB',
+                    icon: icons[colorIdx],
+                    bgColor: colors[colorIdx],
+                    iconColor: iconColors[colorIdx],
+                  ),
+                ),
+              );
+            }),
           ),
         ),
       ],
@@ -271,7 +310,23 @@ class HomePage extends BasePage<HomeState,
     );
   }
 
-  Widget _buildStatsCard() {
+  Widget _buildStatsCard(List<ApiReviewActivityData> activities) {
+    final displayActs = activities.isNotEmpty
+        ? activities.take(3).toList()
+        : const [
+            ApiReviewActivityData(
+                subjectTitle: 'Toán rời rạc', score: 30, correctCount: 3, totalItems: 10),
+            ApiReviewActivityData(subjectTitle: 'C++', score: 80, correctCount: 8, totalItems: 10),
+            ApiReviewActivityData(
+                subjectTitle: 'Triết', score: 60, correctCount: 6, totalItems: 10),
+          ];
+
+    final colors = [
+      const Color(0xFFFFD2D7),
+      const Color(0xFFB8E3FF),
+      const Color(0xFFC7B8FF),
+    ];
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(24.rps),
@@ -302,15 +357,20 @@ class HomePage extends BasePage<HomeState,
           ),
           SizedBox(height: 16.rps),
           // Legend Row
-          Row(
-            children: [
-              _buildLegendItem(
-                  label: 'Toán rời rạc...'.hardcoded, dotColor: const Color(0xFFFFD2D7)),
-              SizedBox(width: 16.rps),
-              _buildLegendItem(label: 'C++'.hardcoded, dotColor: const Color(0xFFB8E3FF)),
-              SizedBox(width: 16.rps),
-              _buildLegendItem(label: 'Triết'.hardcoded, dotColor: const Color(0xFFC7B8FF)),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(displayActs.length, (index) {
+                final act = displayActs[index];
+                return Padding(
+                  padding: EdgeInsets.only(right: 16.rps),
+                  child: _buildLegendItem(
+                    label: act.documentTitle ?? 'Môn học',
+                    dotColor: colors[index % colors.length],
+                  ),
+                );
+              }),
+            ),
           ),
           SizedBox(height: 24.rps),
           // Bar Chart
@@ -353,23 +413,16 @@ class HomePage extends BasePage<HomeState,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      _buildBar(
-                          score: '3/10'.hardcoded,
-                          text: 'Đúng'.hardcoded,
-                          percentage: 0.3,
-                          barColor: const Color(0xFFFFD2D7)),
-                      _buildBar(
-                          score: '8/10'.hardcoded,
-                          text: 'Đúng'.hardcoded,
-                          percentage: 0.8,
-                          barColor: const Color(0xFFB8E3FF)),
-                      _buildBar(
-                          score: '6/10'.hardcoded,
-                          text: 'Đúng'.hardcoded,
-                          percentage: 0.6,
-                          barColor: const Color(0xFFC7B8FF)),
-                    ],
+                    children: List.generate(displayActs.length, (index) {
+                      final act = displayActs[index];
+                      final pct = act.accuracy > 1.0 ? act.accuracy / 100.0 : act.accuracy;
+                      return _buildBar(
+                        score: '${act.correctAnswers}/${act.totalQuestions}',
+                        text: 'Đúng'.hardcoded,
+                        percentage: pct.clamp(0.0, 1.0),
+                        barColor: colors[index % colors.length],
+                      );
+                    }),
                   ),
                 ),
               ],

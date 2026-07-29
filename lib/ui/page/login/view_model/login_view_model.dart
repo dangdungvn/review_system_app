@@ -74,6 +74,7 @@ class LoginViewModel extends BaseViewModel<LoginState> {
           );
 
           await Future.delayed(const Duration(milliseconds: 1500));
+          await ref.nav.pop();
 
           await ref.nav.replaceAll([const MainRoute()]);
         }

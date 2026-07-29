@@ -4,6 +4,9 @@ class AppFonts {
   /// Font family: Cupertino
   static const String cupertino = 'Cupertino';
 
+  /// Font family: Iconly
+  static const String iconly = 'Iconly';
+
   /// Font family: Noto_Sans_JP
   static const String notoSansJP = 'Noto_Sans_JP';
 }

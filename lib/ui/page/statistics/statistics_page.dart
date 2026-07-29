@@ -15,8 +15,8 @@ class StatisticsPage extends BasePage<StatisticsState,
   ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.statisticsPage);
 
   @override
-  AutoDisposeStateNotifierProvider<StatisticsViewModel, CommonState<StatisticsState>> get provider =>
-      statisticsViewModelProvider;
+  AutoDisposeStateNotifierProvider<StatisticsViewModel, CommonState<StatisticsState>>
+      get provider => statisticsViewModelProvider;
 
   @override
   Widget buildPage(BuildContext context, WidgetRef ref) {
@@ -112,8 +112,10 @@ class StatisticsPage extends BasePage<StatisticsState,
     final list = activities.isNotEmpty
         ? activities
         : const [
-            ApiReviewActivityData(documentTitle: 'Xác suất thống kê', accuracy: 80, correctAnswers: 8, totalQuestions: 10),
-            ApiReviewActivityData(documentTitle: 'Toán rời rạc', accuracy: 60, correctAnswers: 6, totalQuestions: 10),
+            ApiReviewActivityData(
+                subjectTitle: 'Xác suất thống kê', score: 80, correctCount: 8, totalItems: 10),
+            ApiReviewActivityData(
+                subjectTitle: 'Toán rời rạc', score: 60, correctCount: 6, totalItems: 10),
           ];
 
     return Column(
@@ -167,11 +169,13 @@ class StatisticsPage extends BasePage<StatisticsState,
   }) {
     final distribution = _getSubjectDistribution(activities);
     final keys = distribution.keys.toList();
-    
+
     final progressItems = activities.isNotEmpty
         ? keys.map((subject) {
-            final subActs = activities.where((e) => (e.documentTitle ?? 'Khác') == subject).toList();
-            final avgAccuracy = subActs.map((e) => e.accuracy).reduce((a, b) => a + b) / subActs.length;
+            final subActs =
+                activities.where((e) => (e.documentTitle ?? 'Khác') == subject).toList();
+            final avgAccuracy =
+                subActs.map((e) => e.accuracy).reduce((a, b) => a + b) / subActs.length;
             final totalTimeSeconds = subActs.map((e) => e.timeSpent).reduce((a, b) => a + b);
             final hours = totalTimeSeconds ~/ 3600;
             final mins = (totalTimeSeconds % 3600) ~/ 60;
@@ -457,9 +461,37 @@ class StatisticsPage extends BasePage<StatisticsState,
     final daily = List<int>.filled(31, 0);
     if (activities.isEmpty) {
       return [
-        30, 10, 20, 45, 5, 15, 50, 60, 25, 30, 
-        40, 15, 20, 35, 10, 45, 55, 30, 20, 25, 
-        40, 50, 15, 10, 30, 45, 35, 20, 25, 40, 50
+        30,
+        10,
+        20,
+        45,
+        5,
+        15,
+        50,
+        60,
+        25,
+        30,
+        40,
+        15,
+        20,
+        35,
+        10,
+        45,
+        55,
+        30,
+        20,
+        25,
+        40,
+        50,
+        15,
+        10,
+        30,
+        45,
+        35,
+        20,
+        25,
+        40,
+        50
       ];
     }
     for (final act in activities) {
@@ -732,17 +764,20 @@ class StatisticsPage extends BasePage<StatisticsState,
                           children: [
                             _buildBar(
                               week: 'Tuần 1'.hardcoded,
-                              score: '${(_getWeekAccuracy(activities: activities, weekIndex: 0) * 10).toInt()}/10',
+                              score:
+                                  '${(_getWeekAccuracy(activities: activities, weekIndex: 0) * 10).toInt()}/10',
                               percent: _getWeekAccuracy(activities: activities, weekIndex: 0),
                             ),
                             _buildBar(
                               week: 'Tuần 2'.hardcoded,
-                              score: '${(_getWeekAccuracy(activities: activities, weekIndex: 1) * 10).toInt()}/10',
+                              score:
+                                  '${(_getWeekAccuracy(activities: activities, weekIndex: 1) * 10).toInt()}/10',
                               percent: _getWeekAccuracy(activities: activities, weekIndex: 1),
                             ),
                             _buildBar(
                               week: 'Tuần 3'.hardcoded,
-                              score: '${(_getWeekAccuracy(activities: activities, weekIndex: 2) * 10).toInt()}/10',
+                              score:
+                                  '${(_getWeekAccuracy(activities: activities, weekIndex: 2) * 10).toInt()}/10',
                               percent: _getWeekAccuracy(activities: activities, weekIndex: 2),
                             ),
                           ],

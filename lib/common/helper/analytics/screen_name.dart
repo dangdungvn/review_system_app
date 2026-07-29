@@ -64,6 +64,21 @@ enum ScreenName {
     screenEventPrefix: 'statistics',
     screenClass: 'StatisticsPage',
   ),
+  subjectDetailPage(
+    screenName: 'Subject Detail Page',
+    screenEventPrefix: 'subject_detail',
+    screenClass: 'SubjectDetailPage',
+  ),
+  reviewMethodPage(
+    screenName: 'Review Method Page',
+    screenEventPrefix: 'review_method',
+    screenClass: 'ReviewMethodPage',
+  ),
+  summaryDetailPage(
+    screenName: 'Summary Detail Page',
+    screenEventPrefix: 'summary_detail',
+    screenClass: 'SummaryDetailPage',
+  ),
   splashPage(
     screenName: 'Splash Page',
     screenEventPrefix: 'splash',

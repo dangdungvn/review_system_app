@@ -117,7 +117,8 @@ class ReviewPage extends BasePage<ReviewState,
                 padding: EdgeInsets.only(right: index == displayDocs.length - 1 ? 0 : 12.rps),
                 child: _buildSubjectCard(
                   title: doc.title,
-                  subTitle: doc.description ?? '${(doc.fileSize / 1024 / 1024).toStringAsFixed(1)} MB',
+                  subTitle:
+                      doc.description ?? '${(doc.fileSize / 1024 / 1024).toStringAsFixed(1)} MB',
                   icon: icons[colorIdx],
                   bgColor: colors[colorIdx],
                   iconColor: iconColors[colorIdx],
@@ -185,7 +186,8 @@ class ReviewPage extends BasePage<ReviewState,
         : const [
             ApiRecommendationData(title: 'Xác xuất thống kê', reason: 'Hôm nay', type: 'exam'),
             ApiRecommendationData(title: 'Toán rời rạc', reason: 'Hôm qua', type: 'flashcard'),
-            ApiRecommendationData(title: 'Xác xuất thống kê ds...', reason: '19/1/2025', type: 'true_false'),
+            ApiRecommendationData(
+                title: 'Xác xuất thống kê ds...', reason: '19/1/2025', type: 'true_false'),
             ApiRecommendationData(title: 'Giải tích 1', reason: '18/1/2025', type: 'exam'),
           ];
 
@@ -232,7 +234,7 @@ class ReviewPage extends BasePage<ReviewState,
           itemBuilder: (context, index) {
             final item = displayRecs[index];
             final type = item.type;
-            
+
             final iconColor = switch (type) {
               'exam' => const Color(0xFF007AFF),
               'flashcard' => const Color(0xFF34C759),

@@ -8,5 +8,8 @@ part 'home_state.freezed.dart';
 sealed class HomeState extends BaseState with _$HomeState {
   const HomeState._();
 
-  const factory HomeState() = _HomeState;
+  const factory HomeState({
+    @Default(<ApiDocumentData>[]) List<ApiDocumentData> documents,
+    @Default(<ApiReviewActivityData>[]) List<ApiReviewActivityData> activities,
+  }) = _HomeState;
 }
